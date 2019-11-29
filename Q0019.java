@@ -32,7 +32,8 @@ public class Q0019 {
             res = res.next;
         }
     }
-
+    
+    // TODO need improve
     public static ListNode removeNthFromEnd(ListNode head, int n) {
         ListNode pre = null;
         ListNode slow = head;
