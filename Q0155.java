@@ -35,6 +35,7 @@ public class Q0155 {
     }
 }
 
+// TODO need improve
 class MinStack {
 
     private List<Node> list = new ArrayList<>();
