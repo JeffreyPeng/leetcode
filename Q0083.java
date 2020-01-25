@@ -26,7 +26,7 @@ public class Q0083 {
 
     public static ListNode deleteDuplicates(ListNode head) {
         if (head == null) {
-            return null; 
+            return null;
         }
         ListNode node = head;
         while (node.next != null) {
@@ -38,13 +38,13 @@ public class Q0083 {
         }
         return head;
     }
-}
 
-public static class ListNode {
-    int val;
-    ListNode next;
+    public static class ListNode {
+        int val;
+        ListNode next;
 
-    ListNode(int x) {
-        val = x;
+        ListNode(int x) {
+            val = x;
+        }
     }
 }

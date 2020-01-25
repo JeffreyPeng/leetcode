@@ -27,9 +27,9 @@ public class Q0093 {
 
     public List<String> restoreIpAddresses(String s) {
         if (s.length() > 12 || s.length() < 4)
-            return new ArrayList(result);
+            return new ArrayList<>(result);
         recr(s);
-        return new ArrayList(result);
+        return new ArrayList<>(result);
     }
 
     private void recr(String s) {
