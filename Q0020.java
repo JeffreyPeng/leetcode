@@ -27,25 +27,29 @@ import java.util.Stack;
 public class Q0020 {
 
     public static void main(String[] args) {
-        System.out.println(isValid("()"));
-        System.out.println(isValid("()[]{}"));
-        System.out.println(isValid("(]"));
-        System.out.println(isValid("([)]"));
-        System.out.println(isValid("{[]}"));
-        System.out.println(isValid("{"));
-        System.out.println(isValid("}"));
+        System.out.println(new Solution20().isValid("()"));
+        System.out.println(new Solution20().isValid("()[]{}"));
+        System.out.println(new Solution20().isValid("(]"));
+        System.out.println(new Solution20().isValid("([)]"));
+        System.out.println(new Solution20().isValid("{[]}"));
+        System.out.println(new Solution20().isValid("{"));
+        System.out.println(new Solution20().isValid("}"));
     }
+}
 
-    public static boolean isValid(String s) {
-        Map<Character, Character> map = new HashMap<>();
+class Solution20 {
+
+    private static Map<Character, Character> map = new HashMap<>();
+    static {
         map.put(')', '(');
         map.put('}', '{');
         map.put(']', '[');
+    }
 
+    public boolean isValid(String s) {
         Stack<Character> stack = new Stack<>();
-        for (int i = 0; i < s.length(); i++) {
-            char c = s.charAt(i);
-            if (c == '(' || c == '{' || c == '[') {
+        for (char c : s.toCharArray()) {
+            if (!map.containsKey(c)) {
                 stack.push(c);
             } else {
                 if (stack.isEmpty() || stack.pop() != map.get(c)) {
@@ -53,9 +57,6 @@ public class Q0020 {
                 }
             }
         }
-        if (!stack.isEmpty()) {
-            return false;
-        }
-        return true;
+        return stack.isEmpty();
     }
 }

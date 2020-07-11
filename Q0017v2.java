@@ -18,15 +18,15 @@ import java.util.Map;
  * Although the above answer is in lexicographical order, your answer could be
  * in any order you want.
  */
-public class Q0017 {
+public class Q0017v2 {
 
     public static void main(String[] args) {
-        List<String> strings = new Solution17().letterCombinations("23");
+        List<String> strings = new Solution17v2().letterCombinations("");
         strings.forEach(System.out::println);
     }
 }
 
-class Solution17 {
+class Solution17v2 {
 
     static Map<String, String> map = new HashMap<>();
     static {
@@ -39,27 +39,25 @@ class Solution17 {
         map.put("8", "tuv");
         map.put("9", "wxyz");
     }
-    private List<String> list = new ArrayList<>();
+    private List<String> outList = new ArrayList<>();
 
     public List<String> letterCombinations(String digits) {
-        recur(digits);
-        return list;
+        if ("".equals(digits)) {
+            return outList;
+        }
+        recur("", digits);
+        return outList;
     }
-
-    void recur(String d) {
-        if (d.length() == 1) {
-            if (list.size() == 0) {
-                map.get(d).chars().forEach(c -> list.add((char) c + ""));
-            } else {
-                List<String> resultList = new ArrayList<>();
-                map.get(d).chars().forEach(c -> list.forEach(s -> resultList.add(s + (char) c)));
-                list = resultList;
-            }
+    private void recur(String pre, String next) {
+        if (next == null) {
+            outList.add(pre);
             return;
         }
-        if (d.length() > 1) {
-            recur(d.substring(0, 1));
-            recur(d.substring(1));
+        String first = next.substring(0, 1);
+        String rest = next.length() > 1 ? next.substring(1): null;
+        char[] letters = map.get(first).toCharArray();
+        for (char c : letters) {
+            recur(pre + c, rest);
         }
     }
 }

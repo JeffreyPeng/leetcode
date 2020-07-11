@@ -1,5 +1,4 @@
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Stack;
 
 /**
  * 155. Min Stack
@@ -18,74 +17,56 @@ import java.util.List;
  * minStack.push(-3); minStack.getMin(); --> Returns -3. minStack.pop();
  * minStack.top(); --> Returns 0. minStack.getMin(); --> Returns -2.
  * 
- * 
  */
 public class Q0155 {
 
     public static void main(String[] args) {
-
         MinStack minStack = new MinStack();
         minStack.push(-2);
         minStack.push(0);
         minStack.push(-3);
-        System.out.println(minStack.getMin()); // 返回 -3.
+        System.out.println(minStack.getMin()); // -3
         minStack.pop();
-        System.out.println(minStack.top()); // 返回 0.
-        System.out.println(minStack.getMin()); // 返回 -2.
-    }
-}
-
-// TODO need improve
-class MinStack {
-
-    private List<Node> list = new ArrayList<>();
-    private int top = -1;
-
-    /** initialize your data structure here. */
-    public MinStack() {
-
+        System.out.println(minStack.top()); // 0
+        System.out.println(minStack.getMin()); // -2
     }
 
-    public void push(int x) {
-        Node node = new Node(x, x);
-        if (top != -1) {
-            Node topNode = list.get(top);
-            if (topNode.min < x) {
-                node.min = topNode.min;
+    private static class MinStack {
+        Stack<Integer> dataStack;
+        Stack<Integer> minStack;
+
+        /** initialize your data structure here. */
+        public MinStack() {
+            dataStack = new Stack<>();
+            minStack = new Stack<>();
+        }
+
+        public void push(int x) {
+            dataStack.push(x);
+            int min = x;
+            if (!minStack.isEmpty()) {
+                min = Math.min(x, minStack.peek());
             }
+            minStack.push(min);
         }
-        list.add(node);
-        top++;
-    }
 
-    public void pop() {
-        list.remove(top);
-        top--;
-    }
-
-    public int top() {
-        if (top == -1) {
-            return 0;
+        public void pop() {
+            dataStack.pop();
+            minStack.pop();
         }
-        return list.get(top).value;
-    }
 
-    public int getMin() {
-        return list.get(top).min;
+        public int top() {
+            return dataStack.peek();
+        }
+
+        public int getMin() {
+            return minStack.peek();
+        }
     }
+    /**
+     * Your MinStack object will be instantiated and called as such: MinStack obj =
+     * new MinStack(); obj.push(x); obj.pop(); int param_3 = obj.top(); int param_4
+     * = obj.getMin();
+     */
+
 }
-
-class Node {
-    public Node(int value, int min) {
-        this.value = value;
-        this.min = min;
-    }
-
-    int value;
-    int min;
-}
-/**
- * Your MinStack object will be instantiated and called as such: MinStack obj =
- * new MinStack(); obj.push(x); obj.pop(); int param_3 = obj.top(); int param_4
- * = obj.getMin();
- */
